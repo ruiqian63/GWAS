@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # merge vcf
 bcftools index qc_control.vcf.gz
 bcftools index qc_case.vcf.gz
