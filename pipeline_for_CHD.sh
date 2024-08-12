@@ -40,7 +40,7 @@ plink --bfile merged_data --pca 10 --out pca_results
 awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11}' pca_results.eigenvec > pca_covar.txt
 
 #remove phenotype missing ones
-plink --bfile updated_sex_phenotype --pheno-req --make-bed --out updated_sex_phenotype_fine
+
 
 # logistic
 plink --bfile updated_sex_phenotype_fine --logistic --covar pca_covar.txt --allow-no-sex --out gwas_logistic_results_all
