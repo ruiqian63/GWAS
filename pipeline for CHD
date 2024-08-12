@@ -13,11 +13,8 @@ sed -i 's/Number=G/Number=./g' hdr.txt
 # use the modified header to update the original VCF file
 bcftools reheader -h hdr.txt folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > folate_pass_coding_sfari_sibs_removed_RG.vcf.gz
 
-
-
-# if error, need remove allele difference
-bcftools filter -e 'POS=80273838 && CHROM="10"' qc_control.vcf.gz -O z -o qc_control_filtered.vcf.gz
-bcftools filter -e 'POS=80273838 && CHROM="10"' qc_case.vcf.gz -O z -o qc_case_filtered.vcf.gz
+# convert .vcf files
+plink --vcf input_file.vcf.gz --make-bed --out output_prefix
 
 # add sex information
 awk '{if(NR>1) print $1, $2, $4}' file.sexcheck > updated_sex.txt
