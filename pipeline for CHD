@@ -3,6 +3,17 @@ bcftools index qc_control.vcf.gz
 bcftools index qc_case.vcf.gz
 bcftools merge qc_control.vcf.gz qc_case.vcf.gz -O z -o merged_filtered.vcf.gz
 
+# change vcf header
+bcftools view -h folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > hdr.txt
+# use sed to change header 
+sed -i 's/ID=AD,Number=R,/ID=AD,Number=.,/' hdr.txt
+# change to all instances of Number=R in the header
+sed -i 's/Number=R/Number=./g' hdr.txt
+# use the modified header to update the original VCF file
+bcftools reheader -h hdr.txt folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > folate_pass_coding_sfari_sibs_removed_R.vcf.gz
+
+
+
 # if error, need remove allele difference
 bcftools filter -e 'POS=80273838 && CHROM="10"' qc_control.vcf.gz -O z -o qc_control_filtered.vcf.gz
 bcftools filter -e 'POS=80273838 && CHROM="10"' qc_case.vcf.gz -O z -o qc_case_filtered.vcf.gz
