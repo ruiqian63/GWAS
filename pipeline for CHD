@@ -7,10 +7,11 @@ bcftools merge qc_control.vcf.gz qc_case.vcf.gz -O z -o merged_filtered.vcf.gz
 bcftools view -h folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > hdr.txt
 # use sed to change header 
 sed -i 's/ID=AD,Number=R,/ID=AD,Number=.,/' hdr.txt
-# change to all instances of Number=R in the header
+# change to all instances of Number=R/G in the header
 sed -i 's/Number=R/Number=./g' hdr.txt
+sed -i 's/Number=G/Number=./g' hdr.txt
 # use the modified header to update the original VCF file
-bcftools reheader -h hdr.txt folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > folate_pass_coding_sfari_sibs_removed_R.vcf.gz
+bcftools reheader -h hdr.txt folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > folate_pass_coding_sfari_sibs_removed_RG.vcf.gz
 
 
 
