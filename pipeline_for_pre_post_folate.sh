@@ -35,3 +35,8 @@ plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_sex
 
 #GWAS
 plink --bfile qc_updated_phenotype_sex --logistic --allow-no-sex --out gwas_logistic_results_pre_folate
+plink --bfile qc_updated_phenotype_sex --logistic --allow-no-sex --out gwas_logistic_results_post_folate
+
+#copy
+scp ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/pre_folate/gwas_logistic_results_pre_folate.assoc.logistic /Users/Rui/documents/gwas_all
+scp ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/post_folate/gwas_logistic_results_post_folate.assoc.logistic /Users/Rui/documents/gwas_all
