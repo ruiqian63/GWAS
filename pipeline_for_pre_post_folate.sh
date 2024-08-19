@@ -23,3 +23,14 @@ awk '{if(NR>1) print $1, $2, $4}' pcgc-exomes-n20631.vt.m1alt.U3.vqsrsi.fxh.anno
 awk '{if(NR>1) print $1, $2, $4}' WES3-20160826.targets.a.f-016.m.b.f.snpeff.dbnsfp.1kg.esp.exac.trio.snpeff.plink.sexcheck > updated_sex.txt
 plink --bfile updated_phenotype --update-sex updated_sex1.txt --make-bed --out updated_sex1
 plink --bfile updated_sex1 --update-sex updated_sex.txt --make-bed --out updated_phenotype_sex
+
+#quality contory
+plink --bfile updated_phenotype_sex --genome --min 0.1 --allow-no-sex --make-bed --out genome_filtered
+plink --bfile genome_filtered --mind 0.1 --make-bed --out mind_filtered
+plink --bfile mind_filtered --geno 0.02 --make-bed --out geno_filtered
+plink --bfile geno_filtered --maf 0.05 --make-bed --out maf_filtered
+plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_sex
+
+#pca
+
+#GWAS
