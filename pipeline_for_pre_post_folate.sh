@@ -17,3 +17,9 @@ awk '{if($2 == "FALSE") print $1, 1; else if($2 == "TRUE") print $1, 2}' post_fo
 #add phenotype
 awk 'NR==FNR {pheno[$1]=$2; next} {if ($1 in pheno) $6=pheno[$1]; print}' phenotype_map.txt pre_folate.fam > updated_phenotype.fam
 awk 'NR==FNR {pheno[$1]=$2; next} {if ($1 in pheno) $6=pheno[$1]; print}' phenotype_map.txt post_folate.fam > updated_phenotype.fam
+
+#add sex
+awk '{if(NR>1) print $1, $2, $4}' pcgc-exomes-n20631.vt.m1alt.U3.vqsrsi.fxh.anno.snpeff.dbnsfp.ESM1b.pf.plink.sexcheck > updated_sex1.txt
+awk '{if(NR>1) print $1, $2, $4}' WES3-20160826.targets.a.f-016.m.b.f.snpeff.dbnsfp.1kg.esp.exac.trio.snpeff.plink.sexcheck > updated_sex.txt
+plink --bfile updated_phenotype --update-sex updated_sex1.txt --make-bed --out updated_sex1
+plink --bfile updated_sex1 --update-sex updated_sex.txt --make-bed --out updated_phenotype_sex
