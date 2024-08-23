@@ -22,8 +22,6 @@ vcftools --gzvcf folate_pass_pcgc_ctd_srv.vcf.gz --positions shared_positions.tx
 
 # change vcf header
 bcftools view -h folate_pass_coding_sfari_sibs_hg19toHg38.vcf.gz > hdr.txt
-# use sed to change header 
-sed -i 's/ID=AD,Number=R,/ID=AD,Number=.,/' hdr.txt
 # change to all instances of Number=R/G in the header
 sed -i 's/Number=R/Number=./g' hdr.txt
 sed -i 's/Number=G/Number=./g' hdr.txt
