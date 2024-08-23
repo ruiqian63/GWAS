@@ -1,5 +1,5 @@
-#path of GWAS
-/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/
+#path of GWAS 
+cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/
 
 #source
 source /programs/biogrids.shrc
