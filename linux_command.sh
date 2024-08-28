@@ -3,7 +3,7 @@ cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/
 
 #source
 source /programs/biogrids.shrc
-source source ~/.bashrc
+source ~/.bashrc
 
 #add alias
 nano ~/.bashrc
