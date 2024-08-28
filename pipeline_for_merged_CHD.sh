@@ -53,7 +53,9 @@ plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_sex_
 
 # pca
 plink --bfile merged_data --pca 10 --out pca_results
-awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11}' pca_results.eigenvec > pca_covar.txt
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pca_results.eigenvec > pca_covar.txt
 
 # logistic
 plink --bfile qc_updated_phenotype_sex_all --logistic --allow-no-sex --out gwas_logistic_results_all
+plink --bfile qc_updated_phenotype_sex_all --logistic --covar pca_covar.txt --allow-no-sex --out gwas_logistic_results_all_pca
+
