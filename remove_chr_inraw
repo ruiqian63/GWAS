@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#SBATCH --partition=bch-compute # queue to be used
+#SBATCH --time=24:00:00 # Running time (in hours-minutes-seconds)
+#SBATCH --job-name=liftover # Job name
+#SBATCH --output=rmchr.%j.out # Name of the output file
+#SBATCH --error=rmchr.%j.error
+#SBATCH --nodes=1 # Number of compute nodes
+#SBATCH --ntasks=8 # Number of threads/tasks on one node
+
+#SBATCH --mem=12G
+
+## commands
+source /programs/biogrids.shrc
+
+gunzip no_multi_case.vcf.gz
+
+sed 's/^#.*\n//; s/^chr//g' no_multi_case.vcf > no_multi_case_no_chr.vcf
+
+# 移除 header 中的 `chr` 前缀
+sed 's/^##contig=<ID=chr/\n##contig=<ID=/g' no_multi_case_no_chr.vcf > no_multi_case_no_chr_cleaned.vcf
+
+bgzip no_multi_case_no_chr_cleaned.vcf
+
+bcftools index no_multi_case_no_chr_cleaned.vcf.gz
+bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned.vcf.gz | sort -u > file2_positions.txt
