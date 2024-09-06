@@ -10,16 +10,19 @@
 #SBATCH --mem=12G
 
 ## commands
-#source /programs/biogrids.shrc
+source /programs/biogrids.shrc
 
 #get vcf index
 #bcftools index no_multi_case.vcf.gz
-#bcftools index no_multi_control.vcf.gz
+mv pass_sfari_sibs_hg19toHg38.vcf.gz no_multi_control.vcf.gz
+bcftools index no_multi_control.vcf.gz
+echo "rename and index"
 
 # finding shared variants
 #bcftools query -f '%CHROM\t%POS\n' no_multi_control.vcf.gz | sort -u > file1_positions.txt
-#bcftools query -f '%CHROM\t%POS\n' no_multi_case.vcf.gz | sort -u > file2_positions.txt
-comm -12 <(sort file1_positions.txt) <(sort file2_positions.txt) > shared_positions.txt
+#bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned.vcf.gz | sort -u > file2_positions.txt
+#comm -12 <(sort file1_positions.txt) <(sort file2_positions.txt) > shared_positions.txt
+#echo "position"
 
 # filter VCF files based on shared positions
 vcftools --gzvcf no_multi_control.vcf.gz --positions shared_positions.txt --recode --stdout | bgzip -c > filtered_no_multi_control.vcf.gz
