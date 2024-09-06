@@ -19,8 +19,8 @@ sed 's/^#.*\n//; s/^chr//g' no_multi_case.vcf > no_multi_case_no_chr.vcf
 
 # 移除 header 中的 `chr` 前缀
 sed 's/^##contig=<ID=chr/\n##contig=<ID=/g' no_multi_case_no_chr.vcf > no_multi_case_no_chr_cleaned.vcf
+sed '/^$/d' no_multi_case_no_chr_cleaned.vcf > no_multi_case_no_chr_cleaned_no_empty.vcf
+bgzip no_multi_case_no_chr_cleaned_no_empty.vcf
 
-bgzip no_multi_case_no_chr_cleaned.vcf
-
-bcftools index no_multi_case_no_chr_cleaned.vcf.gz
-bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned.vcf.gz | sort -u > file2_positions.txt
+bcftools index no_multi_case_no_chr_cleaned_no_empty.vcf.gz
+bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz | sort -u > file2_positions.txt
