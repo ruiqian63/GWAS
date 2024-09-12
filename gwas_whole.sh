@@ -23,13 +23,13 @@ mv merged_whole.bed updated_phenotype.bed
 
 # quality control
 plink --bfile  updated_phenotype --genome --min 0.1 --allow-no-sex --make-bed --out genome_filtered
-plink --bfile genome_filtered --mind 0.1 --make-bed --out mind_filtered
+plink --bfile genome_filtered --mind 0.6 --make-bed --out mind_filtered
 plink --bfile mind_filtered --geno 0.02 --make-bed --out geno_filtered
 plink --bfile geno_filtered --maf 0.05 --make-bed --out maf_filtered
 plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_nosex_all
 
 # pca
-plink --bfile merged_data --pca 3 --out pca_results
+plink --bfile qc_updated_phenotype_nosex_all --pca 3 --out pca_results
 awk '{print $1, $2, $3, $4, $5}' pca_results.eigenvec > pca_covar.txt
 
 # logistic
