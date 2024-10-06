@@ -11,7 +11,7 @@ alias folder='cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiq
 
 #require e3 cluster
 ssh ch258782@e3-login.tch.harvard.edu
-srun -A bch -p bch-interactive -n 6 --mem=64GB --qos=interactive --pty /bin/bash
+srun -A bch -p bch-interactive -n 6 --mem=16GB --qos=interactive --pty /bin/bash
 
 #scp
 scp rui.qian@navarro:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/test/rawdata/fail-het-qc.txt  /Users/Rui/downloads
