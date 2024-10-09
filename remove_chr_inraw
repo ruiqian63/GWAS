@@ -23,5 +23,9 @@ sed '/^$/d' no_multi_case_no_chr_cleaned.vcf > no_multi_case_no_chr_cleaned_no_e
 bgzip no_multi_case_no_chr_cleaned_no_empty.vcf
 
 bcftools index no_multi_case_no_chr_cleaned_no_empty.vcf.gz
-bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz | sort -u > file2_positions.txt
+bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz | sort -u > case_positions.txt
 bcftools query -f '%CHROM\t%POS\n' pass_sfari_sibs_hg19toHg38.vcf.gz | sort -u > control_positions.txt
+bcftools query -f '%CHROM\t%POS\t%ID\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz | sort -u > case_rsids.txt
+bcftools query -f '%CHROM\t%POS\t%ID\n' pass_sfari_sibs_hg19toHg38.vcf.gz | sort -u > control_rsids.txt
+
+
