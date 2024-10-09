@@ -27,5 +27,6 @@ bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz 
 bcftools query -f '%CHROM\t%POS\n' pass_sfari_sibs_hg19toHg38.vcf.gz | sort -u > control_positions.txt
 bcftools query -f '%CHROM\t%POS\t%ID\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz | sort -u > case_rsids.txt
 bcftools query -f '%CHROM\t%POS\t%ID\n' pass_sfari_sibs_hg19toHg38.vcf.gz | sort -u > control_rsids.txt
+bcftools view pass_pcgc_ctd.vcf.gz --regions chr10 | grep rs1190769407
 
 
