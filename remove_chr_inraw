@@ -24,3 +24,4 @@ bgzip no_multi_case_no_chr_cleaned_no_empty.vcf
 
 bcftools index no_multi_case_no_chr_cleaned_no_empty.vcf.gz
 bcftools query -f '%CHROM\t%POS\n' no_multi_case_no_chr_cleaned_no_empty.vcf.gz | sort -u > file2_positions.txt
+bcftools query -f '%CHROM\t%POS\n' pass_sfari_sibs_hg19toHg38.vcf.gz | sort -u > control_positions.txt
