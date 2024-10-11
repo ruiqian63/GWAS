@@ -7,7 +7,7 @@
 #SBATCH --error=merge.%j.error
 #SBATCH --nodes=1 # Number of compute nodes
 #SBATCH --ntasks=8 # Number of threads/tasks on one node
-#SBATCH --mem=12G
+#SBATCH --mem=64G
 
 ## commands
 source /programs/biogrids.shrc
