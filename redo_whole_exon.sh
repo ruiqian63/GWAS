@@ -45,5 +45,9 @@ echo "removed_RG in control"
 
 6. merge
 bcftools index case_snps_only_shared_removed_RG.vcf.gz
+#number of SNPs:	2071037
 bcftools index control_snps_only_shared_removed_RG.vcf.gz
+#number of SNPs:	1991100
 bcftools merge case_snps_only_shared_removed_RG.vcf.gz control_snps_only_shared_removed_RG.vcf.gz -O z -o merged_1.vcf.gz
+#number of SNPs:	2087684
+
