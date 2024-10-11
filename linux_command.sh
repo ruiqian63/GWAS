@@ -1,6 +1,6 @@
 #path of GWAS 
-cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/
-
+cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian_oldgwas/
+cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas
 #source
 source /programs/biogrids.shrc
 source ~/.bashrc
