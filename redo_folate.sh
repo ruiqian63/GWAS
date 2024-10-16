@@ -54,3 +54,7 @@ awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pre_pca_results.
 plink --bfile post_qc_updated_phenotype_all --pca 10 --out post_pca_results
 awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' post_pca_results.eigenvec > post_pca_covar_10.txt
 
+plink2 --bfile pre_qc_updated_phenotype_all --glm --covar pre_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_logistic_results_all_pca10_plink2 
+plink2 --bfile pre_qc_updated_phenotype_all --glm --covar pre_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_logistic_results_all_pca10_plink2 --adjust
+plink2 --bfile post_qc_updated_phenotype_all --glm --covar post_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out post_gwas_logistic_results_all_pca10_plink2
+plink2 --bfile post_qc_updated_phenotype_all --glm --covar post_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out post_gwas_logistic_results_all_pca10_plink2 --adjust
