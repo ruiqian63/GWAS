@@ -51,3 +51,49 @@ bcftools index control_snps_only_shared_removed_RG.vcf.gz
 bcftools merge case_snps_only_shared_removed_RG.vcf.gz control_snps_only_shared_removed_RG.vcf.gz -O z -o merged_1.vcf.gz
 #number of SNPs:	2087684
 
+7. add phenotype information
+awk '{print $2, 2}' case.fam > case_ids.txt
+awk '{print $2, 1}' control.fam > control_ids.txt
+cat case_ids.txt control_ids.txt > all_ids.txt
+awk 'NR==FNR{a[$1]=$2; next} {if ($2 in a) $6=a[$2]; print}' all_ids.txt merged.fam > updated_phenotype.fam
+mv merged.bed updated_phenotype.bed
+mv merged.bim updated_phenotype.bim
+
+8. quality control
+#plink --bfile updated_phenotype --genome --min 0.1 --allow-no-sex --make-bed --out genome_filtered
+#2087684 variants and 3869 people pass filters and QC.
+#3156 are cases and 713 are controls.
+#Excluding 41546 variants on non-autosomes from IBD calculation.
+plink --bfile updated_phenotype --mind 0.1 --make-bed --out mind_filtered
+#Total genotyping rate in remaining samples is 0.978783.
+#2087684 variants and 3868 people pass filters and QC.
+#Among remaining phenotypes, 3156 are cases and 712 are controls.
+plink --bfile mind_filtered --geno 0.1 --make-bed --out geno_filtered
+#Total genotyping rate is 0.978783.
+#16771 variants removed due to missing genotype data (--geno).
+#2070913 variants and 3868 people pass filters and QC.
+#Among remaining phenotypes, 3156 are cases and 712 are controls.
+plink --bfile geno_filtered --maf 0.05 --make-bed --out maf_filtered
+#Total genotyping rate is 0.98518.
+#1984071 variants removed due to minor allele threshold(s)
+#86842 variants and 3868 people pass filters and QC.
+#Among remaining phenotypes, 3156 are cases and 712 are controls.
+plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_all
+#Total genotyping rate is 0.999267.
+#16776 variants removed due to Hardy-Weinberg exact test.
+#60029 variants and 3868 people pass filters and QC.
+#Among remaining phenotypes, 3156 are cases and 712 are controls.
+
+9. pca
+plink --bfile qc_updated_phenotype_all --pca 10 --out pca_results
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pca_results.eigenvec > pca_covar_10.txt
+
+#plink --bfile qc_updated_phenotype_all --pca 3 --out pca_results
+#awk '{print $1, $2, $3, $4, $5}' pca_results.eigenvec > pca_covar_3.txt
+
+
+10. logistic
+plink --bfile qc_updated_phenotype_all --logistic --allow-no-sex --out gwas_logistic_results_all --adjust
+plink --bfile qc_updated_phenotype_all --logistic --covar pca_covar_10.txt --allow-no-sex --out gwas_logistic_results_all_pca --adjust
+plink --bfile qc_updated_phenotype_all --logistic --covar pca_covar_3.txt --allow-no-sex --out gwas_logistic_results_all_pca3 --adjust
+plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out gwas_logistic_results_all_pca10_plink2 --adjust
