@@ -88,8 +88,8 @@ plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_all
 plink --bfile qc_updated_phenotype_all --pca 10 --out pca_results
 awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pca_results.eigenvec > pca_covar_10.txt
 
-#plink --bfile qc_updated_phenotype_all --pca 3 --out pca_results
-#awk '{print $1, $2, $3, $4, $5}' pca_results.eigenvec > pca_covar_3.txt
+plink --bfile qc_updated_phenotype_all --pca 3 --out pca_results
+awk '{print $1, $2, $3, $4, $5}' pca_results.eigenvec > pca_covar_3.txt
 
 
 10. logistic
