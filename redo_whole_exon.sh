@@ -98,3 +98,8 @@ plink --bfile qc_updated_phenotype_all --logistic --covar pca_covar_10.txt --all
 plink --bfile qc_updated_phenotype_all --logistic --covar pca_covar_3.txt --allow-no-sex --out gwas_logistic_results_all_pca3 --adjust
 plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out gwas_logistic_results_all_pca10_plink2 
 plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out gwas_logistic_results_all_pca3_plink2 
+
+awk 'NR==1 || $11 == "ADD" {print $0}' gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > filtered_results.glm.logistic.hybrid
+
+
+scp -r ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_folate_whole/filtered_results.glm.logistic.hybrid /Users/Rui/documents/GWAS/redo/finemap_folate_whole  
