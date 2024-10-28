@@ -61,7 +61,11 @@ awk '{print $1, $2, $3, $4, $5}' post_pca_results.eigenvec > post_pca_covar_3.tx
 
 
 
-#plink2 --bfile pre_qc_updated_phenotype_all --glm --covar pre_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_logistic_results_all_pca10_plink2 
-#plink2 --bfile pre_qc_updated_phenotype_all --glm --covar pre_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_logistic_results_all_pca10_plink2 --adjust
-#plink2 --bfile post_qc_updated_phenotype_all --glm --covar post_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out post_gwas_logistic_results_all_pca10_plink2
-#plink2 --bfile post_qc_updated_phenotype_all --glm --covar post_pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out post_gwas_logistic_results_all_pca10_plink2 --adjust
+plink2 --bfile pre_qc_updated_phenotype_all --glm --covar pre_pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_logistic_results_all_pca3_plink2 
+
+plink2 --bfile post_qc_updated_phenotype_all --glm --covar post_pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out post_gwas_logistic_results_all_pca3_plink2
+
+awk 'NR==1 || $11 == "ADD" {print $0}' pre_gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > pre_filtered_results.glm.logistic.hybrid
+awk 'NR==1 || $11 == "ADD" {print $0}' post_gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > post_filtered_results.glm.logistic.hybrid
+
+scp -r ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_folate_prepost/ /Users/Rui/documents/GWAS/redo                                        
