@@ -84,9 +84,16 @@ plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_all
 #60029 variants and 3868 people pass filters and QC.
 #Among remaining phenotypes, 3156 are cases and 712 are controls.
 
+$remove chr6/x
+plink --bfile qc_updated_phenotype_all --chr 1-5 7-22 --make-bed --out qc_updated_phenotype_all_no_chr6X
+
+
 9. pca
 plink --bfile qc_updated_phenotype_all --pca 10 --out pca_results
 awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pca_results.eigenvec > pca_covar_10.txt
+
+plink --bfile qc_updated_phenotype_all_no_chr6X --pca 10 --out pca_results_no_chr6X
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pca_results_no_chr6X.eigenvec > pca_covar_10_no_chr6X.txt
 
 plink --bfile qc_updated_phenotype_all --pca 3 --out pca_results
 awk '{print $1, $2, $3, $4, $5}' pca_results.eigenvec > pca_covar_3.txt
@@ -97,8 +104,12 @@ plink --bfile qc_updated_phenotype_all --logistic --allow-no-sex --out gwas_logi
 plink --bfile qc_updated_phenotype_all --logistic --covar pca_covar_10.txt --allow-no-sex --out gwas_logistic_results_all_pca --adjust
 plink --bfile qc_updated_phenotype_all --logistic --covar pca_covar_3.txt --allow-no-sex --out gwas_logistic_results_all_pca3 --adjust
 plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_10.txt --covar-variance-standardize --allow-no-sex --out gwas_logistic_results_all_pca10_plink2 
-plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out gwas_logistic_results_all_pca3_plink2 
 
+plink2 --bfile qc_updated_phenotype_all_no_chr6X --glm --covar pca_covar_10_no_chr6X.txt --covar-variance-standardize --allow-no-sex --out gwas_whole_exon_pca3_no_chr6X
+awk 'NR==1 || $11 == "ADD" {print $0}' gwas_whole_exon_pca3_no_chr6X.PHENO1.glm.logistic.hybrid > filtered_gwas_whole_exon_pca3_no_chr6X.glm.logistic.hybrid
+
+
+plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out gwas_logistic_results_all_pca3_plink2 
 awk 'NR==1 || $11 == "ADD" {print $0}' gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > filtered_results.glm.logistic.hybrid
 
 
