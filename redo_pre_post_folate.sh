@@ -49,10 +49,19 @@ plink --bfile post_mind_filtered --geno 0.1 --make-bed --out post_geno_filtered
 plink --bfile post_geno_filtered --maf 0.05 --make-bed --out post_maf_filtered
 plink --bfile post_maf_filtered --hwe 0.05 --make-bed --out post_qc_updated_phenotype_all
 
-#plink --bfile pre_qc_updated_phenotype_all --pca 10 --out pre_pca_results
-#awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pre_pca_results.eigenvec > pre_pca_covar_10.txt
-#plink --bfile post_qc_updated_phenotype_all --pca 10 --out post_pca_results
-#awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' post_pca_results.eigenvec > post_pca_covar_10.txt
+$remove chr6/x
+plink --bfile pre_qc_updated_phenotype_all --chr 1-5 7-22 --make-bed --out pre_qc_updated_phenotype_all_no_chr6X
+plink --bfile post_qc_updated_phenotype_all --chr 1-5 7-22 --make-bed --out post_qc_updated_phenotype_all_no_chr6X
+
+plink --bfile pre_qc_updated_phenotype_all --pca 10 --out pre_pca_results
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pre_pca_results.eigenvec > pre_pca_covar_10.txt
+plink --bfile post_qc_updated_phenotype_all --pca 10 --out post_pca_results
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' post_pca_results.eigenvec > post_pca_covar_10.txt
+
+plink --bfile pre_qc_updated_phenotype_all_no_chr6X --pca 10 --out pre_pca_results_no_chr6X
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' pre_pca_results_no_chr6X.eigenvec > pre_pca_covar_10_no_chr6X.txt
+plink --bfile post_qc_updated_phenotype_all_no_chr6X --pca 10 --out post_pca_results_no_chr6X
+awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12}' post_pca_results.eigenvec_no_chr6X > post_pca_covar_10_no_chr6X.txt
 
 plink --bfile pre_qc_updated_phenotype_all --pca 3 --out pre_pca_results
 awk '{print $1, $2, $3, $4, $5}' pre_pca_results.eigenvec > pre_pca_covar_3.txt
@@ -61,10 +70,13 @@ awk '{print $1, $2, $3, $4, $5}' post_pca_results.eigenvec > post_pca_covar_3.tx
 
 
 
+plink2 --bfile pre_qc_updated_phenotype_all_no_chr6X --glm --covar pre_pca_covar_10_no_chr6X.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_whole_exon_pca3_no_chr6X
+plink2 --bfile post_qc_updated_phenotype_all_no_chr6X --glm --covar post_pca_covar_10_no_chr6X.txt --covar-variance-standardize --allow-no-sex --out post_gwas_whole_exon_pca3_no_chr6X
+awk 'NR==1 || $11 == "ADD" {print $0}' pre_gwas_whole_exon_pca3_no_chr6X.PHENO1.glm.logistic.hybrid > pre_filtered_gwas_whole_exon_pca3_no_chr6X.glm.logistic.hybrid
+awk 'NR==1 || $11 == "ADD" {print $0}' post_gwas_whole_exon_pca3_no_chr6X.PHENO1.glm.logistic.hybrid > post_filtered_gwas_whole_exon_pca3_no_chr6X.glm.logistic.hybrid
+
 plink2 --bfile pre_qc_updated_phenotype_all --glm --covar pre_pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out pre_gwas_logistic_results_all_pca3_plink2 
-
 plink2 --bfile post_qc_updated_phenotype_all --glm --covar post_pca_covar_3.txt --covar-variance-standardize --allow-no-sex --out post_gwas_logistic_results_all_pca3_plink2
-
 awk 'NR==1 || $11 == "ADD" {print $0}' pre_gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > pre_filtered_results.glm.logistic.hybrid
 awk 'NR==1 || $11 == "ADD" {print $0}' post_gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > post_filtered_results.glm.logistic.hybrid
 
