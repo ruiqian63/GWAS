@@ -113,4 +113,4 @@ plink2 --bfile qc_updated_phenotype_all --glm --covar pca_covar_3.txt --covar-va
 awk 'NR==1 || $11 == "ADD" {print $0}' gwas_logistic_results_all_pca3_plink2.PHENO1.glm.logistic.hybrid > filtered_results.glm.logistic.hybrid
 
 
-scp -r ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_folate_whole/filtered_results.glm.logistic.hybrid /Users/Rui/documents/GWAS/redo/finemap_folate_whole  
+scp -r ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_whole_parameter/filtered_gwas_whole_exon_pca3_no_chr6X.glm.logistic.hybrid /Users/Rui/documents/GWAS/redo_no_chr6X/all 
