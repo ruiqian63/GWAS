@@ -21,14 +21,28 @@ locus.data.to_csv("sig_locus.tsv",sep="\t",index=None)
 locus.data["SNPID"].to_csv("sig_locus.snplist",sep="\t",index=None,header=None)
 
 plink \
-  --bfile "./qc_updated_phenotype_all_no_chr6X" \
+  --bfile "./pre_qc_updated_phenotype_all_no_chr6X" \
   --keep-allele-order \
   --r square \
   --extract sig_locus.snplist \
   --out sig_locus_mt_no_chr6x
 
 plink \
-  --bfile "./qc_updated_phenotype_all_no_chr6X" \
+  --bfile "./pre_qc_updated_phenotype_all_no_chr6X" \
+  --keep-allele-order \
+  --r2 square \
+  --extract sig_locus.snplist \
+  --out sig_locus_mt_r2_no_chr6x
+
+plink \
+  --bfile "./post_qc_updated_phenotype_all_no_chr6X" \
+  --keep-allele-order \
+  --r square \
+  --extract sig_locus.snplist \
+  --out sig_locus_mt_no_chr6x
+
+plink \
+  --bfile "./post_qc_updated_phenotype_all_no_chr6X" \
   --keep-allele-order \
   --r2 square \
   --extract sig_locus.snplist \
