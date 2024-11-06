@@ -15,8 +15,11 @@ srun -A bch -p bch-interactive -n 6 --mem=56GB --qos=interactive --pty /bin/bash
 
 #scp
 scp rui.qian@navarro:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/test/rawdata/fail-het-qc.txt  /Users/Rui/downloads
-scp ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/test_all/gwas_logistic_results.assoc.logistic /Users/Rui/documents/gwas_all
+scp ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_prepost/sig_locus_mt_r2_no_chr6x.ld /Users/Rui/documents/GWAS/redo_no_chr6X/pre
+scp ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/rawdata/merged_1.vcf.gz /Users/Rui/documents/GWAS/redo_no_chr6X
+
 scp /Users/Rui/downloads/1_qc_gwas/inversion.txt rui.qian@navarro:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/test/rawdata
-scp /Users/Rui/downloads/folate_pass_pcgc_ctd_srv.vcf ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/ruiqian/data
+scp /Users/Rui/documents/GWAS/redo_no_chr6X/pre/sig_locus.snplist ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_prepost
+
 
 scp -r for folder
