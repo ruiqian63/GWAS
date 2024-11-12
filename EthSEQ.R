@@ -1,10 +1,8 @@
-install.packages(c("devtools", "BiocManager"))
-devtools::install_github("cibiobcg/EthSEQ")
-# Load the EthSEQ package
 library(EthSEQ)
 
 # Set your VCF file path
 your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/rawdata/merged_1.vcf"  # Replace with the actual path to your VCF file
+#your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/rawdata/merged_folate.vcf"
 #your_vcf <- "/Users/Rui/documents/gwas_all/filtered_point_duplicated.vcf"  # Replace with the actual path to your VCF file
 
 # Get the built-in reference GDS file path
