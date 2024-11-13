@@ -2,7 +2,7 @@ library(EthSEQ)
 
 # Set your VCF file path
 #your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/rawdata/merged_1.vcf"  # Replace with the actual path to your VCF file
-your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/eurp_gwas/cleaned_qc_eur.vcf"
+your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/gwas_whole_parameter/cleaned_qc_eur.vcf"
 #your_vcf <- "/Users/Rui/documents/gwas_all/filtered_point_duplicated.vcf"  # Replace with the actual path to your VCF file
 
 # Get the built-in reference GDS file path
@@ -14,7 +14,7 @@ if (reference_gds == "") {
 }
 
 # Set the output directory
-out_dir <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/EthSEQ/folate_result/"  # Replace with the directory path where you want to store the results
+out_dir <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/EthSEQ/"  # Replace with the directory path where you want to store the results
 # Or use a temporary directory
 # out_dir <- file.path(tempdir(), "EthSEQ_CustomAnalysis")
 
@@ -30,7 +30,7 @@ ethseq.Analysis(
 )
 
 # Load and view the results
-result_file <- file.path(out_dir, "Report_folate.txt")
+result_file <- file.path(out_dir, "Report.txt")
 if (!file.exists(result_file)) {
   stop("Analysis result file not found. Please check if the analysis completed successfully.")
 }
