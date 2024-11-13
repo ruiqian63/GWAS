@@ -2,7 +2,7 @@ library(EthSEQ)
 
 # Set your VCF file path
 #your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/rawdata/merged_1.vcf"  # Replace with the actual path to your VCF file
-your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/rawdata/raw_for_EthSEQ/cleaned_merged_folate.vcf"
+your_vcf <- "/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/new_gwas/eurp_gwas/cleaned_qc_eur.vcf"
 #your_vcf <- "/Users/Rui/documents/gwas_all/filtered_point_duplicated.vcf"  # Replace with the actual path to your VCF file
 
 # Get the built-in reference GDS file path
@@ -24,8 +24,8 @@ ethseq.Analysis(
   model.gds = reference_gds,
   out.dir = out_dir,
   verbose = TRUE,
-  cores = 4,
-  composite.model.call.rate = 1,
+  cores = 1,
+  composite.model.call.rate = 0.9,
   space = "3D",
 )
 
