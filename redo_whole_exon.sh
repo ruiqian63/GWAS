@@ -84,6 +84,10 @@ plink --bfile maf_filtered --hwe 0.05 --make-bed --out qc_updated_phenotype_all
 #60029 variants and 3868 people pass filters and QC.
 #Among remaining phenotypes, 3156 are cases and 712 are controls.
 
+for EUR population and 1e-5 hwe:
+75066 variants and 2012 people pass filters and QC.
+Among remaining phenotypes, 1632 are cases and 380 are controls.
+
 $remove chr6/x
 plink --bfile qc_updated_phenotype_all --chr 1-5 7-22 --make-bed --out qc_updated_phenotype_all_no_chr6X
 
